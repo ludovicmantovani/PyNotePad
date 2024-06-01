@@ -1,0 +1,27 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>pictures/icon/about.png</file>
+    <file>pictures/icon/aboutqt.png</file>
+    <file>pictures/icon/bold.png</file>
+    <file>pictures/icon/center.png</file>
+    <file>pictures/icon/color.png</file>
+    <file>pictures/icon/copy.png</file>
+    <file>pictures/icon/cut.png</file>
+    <file>pictures/icon/exit.png</file>
+    <file>pictures/icon/font.png</file>
+    <file>pictures/icon/italic.png</file>
+    <file>pictures/icon/justify.png</file>
+    <file>pictures/icon/left.png</file>
+    <file>pictures/icon/new.png</file>
+    <file>pictures/icon/open.png</file>
+    <file>pictures/icon/paste.png</file>
+    <file>pictures/icon/pdf.png</file>
+    <file>pictures/icon/print.png</file>
+    <file>pictures/icon/printprev.png</file>
+    <file>pictures/icon/redo.png</file>
+    <file>pictures/icon/right.png</file>
+    <file>pictures/icon/save.png</file>
+    <file>pictures/icon/underline.png</file>
+    <file>pictures/icon/undo.png</file>
+  </qresource>
+</RCC>
