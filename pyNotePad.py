@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
-from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
+from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
 from GUI.pyNotePadGUI import Ui_MainWindow
 
 
@@ -16,6 +16,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionNew.triggered.connect(self.new_file)
         self.actionOpen.triggered.connect(self.open_file)
         self.actionPrint.triggered.connect(self.print_file)
+        self.actionPrint_Preview.triggered.connect(self.preview_dialog)
 
     def save_file(self):
         """
@@ -103,6 +104,29 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
 
         if dialog.exec_() == QPrintDialog.Accepted:
             self.textEdit.print(printer)
+
+    def preview_dialog(self):
+        """
+        Opens a print preview dialog for the current text in the textEdit widget.
+
+        This function creates a QPrinter object with high resolution and assigns it to the `printer` variable.
+        Then, it creates a QPrintPreviewDialog object with the `printer` and `self` as arguments and assigns it to the `preview_dialog` variable.
+        The `paintRequested` signal of the `preview_dialog` is connected to the `print_preview` method.
+        Finally, the `exec_` method of the `preview_dialog` is called to display the print preview dialog.
+        """
+        printer = QPrinter(QPrinter.HighResolution)
+        preview_dialog = QPrintPreviewDialog(printer, self)
+        preview_dialog.paintRequested.connect(self.print_preview)
+        preview_dialog.exec_()
+
+    def print_preview(self, printer):
+        """
+        A function that prints a preview of the text in the textEdit widget using the provided printer.
+
+        Parameters:
+            printer: The printer object to use for printing the text.
+        """
+        self.textEdit.print(printer)
 
 
 app = QApplication(sys.argv)
