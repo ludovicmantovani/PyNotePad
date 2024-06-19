@@ -29,7 +29,7 @@ PyNotePad is a simple note-taking application built using Python and PyQt5.
 - Copy: Copies the selected text to the clipboard.
 - Paste: Pastes text from the clipboard.
 
-Text Formatting:
+### Text Formatting:
 - Bold Text: Makes the selected text bold.
 - Italic Text: Makes the selected text italic.
 - Underline Text: Underlines the selected text.
