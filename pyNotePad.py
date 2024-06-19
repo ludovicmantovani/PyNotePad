@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
+from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from GUI.pyNotePadGUI import Ui_MainWindow
 
 
@@ -14,6 +15,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionSave.triggered.connect(self.save_file)
         self.actionNew.triggered.connect(self.new_file)
         self.actionOpen.triggered.connect(self.open_file)
+        self.actionPrint.triggered.connect(self.print_file)
 
     def save_file(self):
         """
@@ -88,6 +90,19 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         if filename[0]:
             with open(filename[0], 'r', encoding='utf-8') as file:
                 self.textEdit.setText(file.read())
+
+    def print_file(self):
+        """
+        Print the contents of the textEdit widget to the printer.
+
+        This function opens a print dialog and allows the user to select a printer and configure the printing settings.
+        If the user accepts the dialog, the contents of the textEdit widget are printed using the selected printer.
+        """
+        printer = QPrinter(QPrinter.HighResolution)
+        dialog = QPrintDialog(printer)
+
+        if dialog.exec_() == QPrintDialog.Accepted:
+            self.textEdit.print(printer)
 
 
 app = QApplication(sys.argv)
