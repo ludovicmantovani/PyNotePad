@@ -20,6 +20,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionPrint.triggered.connect(self.print_file)
         self.actionPrint_Preview.triggered.connect(self.preview_dialog)
         self.actionExport_PDF.triggered.connect(self.export_pdf)
+        self.actionQuit.triggered.connect(self.exit_app)
 
     def save_file(self):
         """
@@ -150,6 +151,12 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
             printer.setOutputFormat(QPrinter.PdfFormat)
             printer.setOutputFileName(filename)
             self.textEdit.document().print(printer)
+
+    def exit_app(self):
+        """
+        Closes the application by calling the `close()` method of the current object.
+        """
+        self.close()
 
 
 app = QApplication(sys.argv)
