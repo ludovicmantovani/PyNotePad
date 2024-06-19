@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtCore import QFileInfo, Qt
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox, QFontDialog, QColorDialog
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
 from GUI.pyNotePadGUI import Ui_MainWindow
 
@@ -39,6 +39,11 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionCenter.triggered.connect(self.align_center_text)
         self.actionRight.triggered.connect(self.align_right_text)
         self.actionJustify.triggered.connect(self.justify_text)
+        self.actionFont.triggered.connect(self.font_dialog)
+        self.actionColor.triggered.connect(self.color_dialog)
+
+        # About menu actions
+        self.actionAbout_App.triggered.connect(self.about)
 
     def save_file(self):
         """
@@ -203,7 +208,21 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
     def justify_text(self):
         self.textEdit.setAlignment(Qt.AlignJustify)
 
+    def font_dialog(self):
+        font, ok = QFontDialog.getFont()
 
-app = QApplication(sys.argv)
-window = NotePadWindow()
-sys.exit(app.exec_())
+        if ok:
+            self.textEdit.setFont(font)
+
+    def color_dialog(self):
+        color = QColorDialog.getColor()
+        self.textEdit.setTextColor(color)
+
+    def about(self):
+        QMessageBox.information(self, "About NotePad", "This is a simple note taking application.")
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = NotePadWindow()
+    sys.exit(app.exec_())
