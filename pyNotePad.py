@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5.QtCore import QFileInfo
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
 from GUI.pyNotePadGUI import Ui_MainWindow
@@ -30,6 +31,10 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionCopy.triggered.connect(self.textEdit.copy)
         self.actionPaste.triggered.connect(self.textEdit.paste)
 
+        # Format menu actions
+        self.actionBold.triggered.connect(self.bold_text)
+        self.actionItalic.triggered.connect(self.italic_text)
+        self.actionUnderline.triggered.connect(self.underline_text)
 
     def save_file(self):
         """
@@ -167,6 +172,20 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         """
         self.close()
 
+    def bold_text(self):
+        font = QFont()
+        font.setBold(True)
+        self.textEdit.setFont(font)
+
+    def italic_text(self):
+        font = QFont()
+        font.setItalic(True)
+        self.textEdit.setFont(font)
+
+    def underline_text(self):
+        font = QFont()
+        font.setUnderline(True)
+        self.textEdit.setFont(font)
 
 app = QApplication(sys.argv)
 window = NotePadWindow()
