@@ -7,6 +7,7 @@ PyNotePad is a simple note-taking application built using Python and PyQt5.
 ## Screenshot
 
 ![Application Screenshot](https://github.com/ludovicmantovani/PyNotePad/blob/master/doc/img/screenshot01.png)
+![Application Screenshot](https://github.com/ludovicmantovani/PyNotePad/blob/master/doc/img/screenshot02.png)
 
 ---
 
