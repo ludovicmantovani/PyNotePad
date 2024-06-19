@@ -13,6 +13,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
     def setup_connects(self):
         self.actionSave.triggered.connect(self.save_file)
         self.actionNew.triggered.connect(self.new_file)
+        self.actionOpen.triggered.connect(self.open_file)
 
     def save_file(self):
         """
@@ -76,6 +77,17 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         """
         if self.maybe_save():
             self.textEdit.clear()
+
+    def open_file(self):
+        """
+        A function that opens a file dialog to select a file to open, reads the content of the selected file,
+        and sets the content to the text edit widget.
+        """
+        filename = QFileDialog.getOpenFileName(self, 'Open File', '', 'Text files (*.txt)')
+
+        if filename[0]:
+            with open(filename[0], 'r', encoding='utf-8') as file:
+                self.textEdit.setText(file.read())
 
 
 app = QApplication(sys.argv)
