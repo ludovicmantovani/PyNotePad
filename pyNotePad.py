@@ -12,6 +12,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
 
     def setup_connects(self):
         self.actionSave.triggered.connect(self.save_file)
+        self.actionNew.triggered.connect(self.new_file)
 
     def save_file(self):
         """
@@ -33,6 +34,48 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
             with open(filename[0], 'w', encoding='utf-8') as file:
                 file.write(self.textEdit.toPlainText())
             QMessageBox.information(self, 'Save File', 'File saved successfully')
+
+    def maybe_save(self):
+        """
+        A function that handles the action of saving a file.
+        It checks if the text is modified, prompts the user with a warning message,
+        and based on the user's choice, it either saves the file using the save_file method
+        or cancels the operation. Returns True if the operation completes successfully.
+        """
+        if not self.textEdit.document().isModified():
+            return True
+
+        ret = QMessageBox.warning(
+            self, 'Application',
+            "The document has been modified.\n"
+            "Do you want to save your changes ?",
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel
+        )
+
+        if ret == QMessageBox.Save:
+            self.save_file()
+        if ret == QMessageBox.Cancel:
+            return False
+        return True
+
+    def new_file(self):
+        """
+        Clears the text in the textEdit widget if the user chooses to save any changes.
+
+        This function first checks if there are any changes made to the text in the textEdit widget.
+        If there are changes, it prompts the user with a warning message asking if they want to save their changes.
+        If the user chooses to save their changes, the function calls the `save_file` method to save the file.
+        If the user chooses not to save their changes or cancels the operation, the function continues without saving the file.
+        Regardless of the user's choice, the function clears the text in the textEdit widget.
+
+        Parameters:
+            None
+
+        Returns:
+            None
+        """
+        if self.maybe_save():
+            self.textEdit.clear()
 
 
 app = QApplication(sys.argv)
