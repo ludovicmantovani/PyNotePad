@@ -1,4 +1,6 @@
 import sys
+
+from PyQt5.QtCore import QFileInfo
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
 from GUI.pyNotePadGUI import Ui_MainWindow
@@ -17,6 +19,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionOpen.triggered.connect(self.open_file)
         self.actionPrint.triggered.connect(self.print_file)
         self.actionPrint_Preview.triggered.connect(self.preview_dialog)
+        self.actionExport_PDF.triggered.connect(self.export_pdf)
 
     def save_file(self):
         """
@@ -127,6 +130,26 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
             printer: The printer object to use for printing the text.
         """
         self.textEdit.print(printer)
+
+    def export_pdf(self):
+        """
+        Export the contents of the textEdit widget to a PDF file.
+
+        This function opens a file dialog and prompts the user to select a file to save the PDF.
+        If a file is selected, the function creates a QPrinter object with high resolution and sets the output format to PDF.
+        The output file name is set to the selected file name or the selected file name with a ".pdf" extension if it doesn't have one.
+        The contents of the textEdit widget are then printed to the PDF file using the print method of the document.
+        """
+        filename, _ = QFileDialog.getSaveFileName(self, 'Export PDF', '', '.pdf')
+
+        if filename and filename != "":
+            if QFileInfo(filename).suffix() == "":
+                filename += ".pdf"
+
+            printer = QPrinter(QPrinter.HighResolution)
+            printer.setOutputFormat(QPrinter.PdfFormat)
+            printer.setOutputFileName(filename)
+            self.textEdit.document().print(printer)
 
 
 app = QApplication(sys.argv)
