@@ -14,6 +14,7 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.show()
 
     def setup_connects(self):
+        # File menu actions
         self.actionSave.triggered.connect(self.save_file)
         self.actionNew.triggered.connect(self.new_file)
         self.actionOpen.triggered.connect(self.open_file)
@@ -21,6 +22,14 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionPrint_Preview.triggered.connect(self.preview_dialog)
         self.actionExport_PDF.triggered.connect(self.export_pdf)
         self.actionQuit.triggered.connect(self.exit_app)
+
+        # Edit menu actions
+        self.actionUndo.triggered.connect(self.textEdit.undo)
+        self.actionRedo.triggered.connect(self.textEdit.redo)
+        self.actionCut.triggered.connect(self.textEdit.cut)
+        self.actionCopy.triggered.connect(self.textEdit.copy)
+        self.actionPaste.triggered.connect(self.textEdit.paste)
+
 
     def save_file(self):
         """
