@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtCore import QFileInfo
+from PyQt5.QtCore import QFileInfo, Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
@@ -35,6 +35,10 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         self.actionBold.triggered.connect(self.bold_text)
         self.actionItalic.triggered.connect(self.italic_text)
         self.actionUnderline.triggered.connect(self.underline_text)
+        self.actionLeft.triggered.connect(self.align_left_text)
+        self.actionCenter.triggered.connect(self.align_center_text)
+        self.actionRight.triggered.connect(self.align_right_text)
+        self.actionJustify.triggered.connect(self.justify_text)
 
     def save_file(self):
         """
@@ -186,6 +190,19 @@ class NotePadWindow(QMainWindow, Ui_MainWindow):
         font = QFont()
         font.setUnderline(True)
         self.textEdit.setFont(font)
+
+    def align_left_text(self):
+        self.textEdit.setAlignment(Qt.AlignLeft)
+
+    def align_center_text(self):
+        self.textEdit.setAlignment(Qt.AlignCenter)
+
+    def align_right_text(self):
+        self.textEdit.setAlignment(Qt.AlignRight)
+
+    def justify_text(self):
+        self.textEdit.setAlignment(Qt.AlignJustify)
+
 
 app = QApplication(sys.argv)
 window = NotePadWindow()
